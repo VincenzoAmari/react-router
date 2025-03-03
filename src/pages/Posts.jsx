@@ -20,8 +20,12 @@ function Posts() {
         {posts.map((post) => (
           <div key={post.id} style={{ border: "1px solid #ccc", padding: "10px", borderRadius: "5px" }}>
             <h3>{post.titolo || "Senza titolo"}</h3>
-            <img src={post.immagine} alt={post.titolo} style={{ width: "100%", maxWidth: "300px" }} />
-            <p>{post.contenuto || "Nessun contenuto disponibile"}</p>
+            <img 
+              src={`http://localhost:3000${post.immagine}`} 
+              alt={post.titolo} 
+              style={{ width: "100%", maxWidth: "300px", display: "block", marginBottom: "10px" }} 
+              onError={(e) => { e.target.src = "https://via.placeholder.com/300"; }} // Se l'immagine non esiste, mostra un placeholder
+            />            <p>{post.contenuto || "Nessun contenuto disponibile"}</p>
             <p><strong>Tags:</strong> {post.tags ? post.tags.join(", ") : "Nessun tag"}</p>
           </div>
         ))}
