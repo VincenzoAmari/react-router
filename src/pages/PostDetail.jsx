@@ -17,4 +17,4 @@ function PostDetail() {
       .catch((error) => console.error("Errore nel caricamento:", error));
   }, [id]);
 
-}
+ }
