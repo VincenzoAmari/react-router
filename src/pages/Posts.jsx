@@ -1,32 +1,30 @@
-import { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 
 function Posts() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/posts")
-      .then((res) => res.json())
+    fetch("http://localhost:3000/api/posts") // Assicurati che l'URL sia corretto
+      .then((response) => response.json())
       .then((data) => {
-        console.log("Dati ricevuti:", data); // Debug per vedere i dati
+        console.log("Dati ricevuti:", data);
         setPosts(data);
       })
-      .catch((error) => console.error("Errore nel caricamento dei post:", error));
+      .catch((error) => console.error("Errore nel caricamento:", error));
   }, []);
 
   return (
     <div>
-      <h2>Lista dei Post</h2>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))", gap: "20px" }}>
-        {posts.length > 0 ? (
-          posts.map((post) => (
-            <div key={post.id} style={{ border: "1px solid #ccc", padding: "10px", borderRadius: "5px", background: "#f9f9f9" }}>
-              <h3>{post.title || "Senza titolo"}</h3>
-              <p>{post.body || "Nessun contenuto disponibile"}</p>
-            </div>
-          ))
-        ) : (
-          <p>⚡ Nessun post disponibile oppure in caricamento...</p>
-        )}
+      <h1>Lista dei Post</h1>
+      <div style={{ display: "grid", gap: "20px" }}>
+        {posts.map((post) => (
+          <div key={post.id} style={{ border: "1px solid #ccc", padding: "10px", borderRadius: "5px" }}>
+            <h3>{post.titolo || "Senza titolo"}</h3>
+            <img src={post.immagine} alt={post.titolo} style={{ width: "100%", maxWidth: "300px" }} />
+            <p>{post.contenuto || "Nessun contenuto disponibile"}</p>
+            <p><strong>Tags:</strong> {post.tags ? post.tags.join(", ") : "Nessun tag"}</p>
+          </div>
+        ))}
       </div>
     </div>
   );
